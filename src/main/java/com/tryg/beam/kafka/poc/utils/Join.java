@@ -158,9 +158,7 @@ public class Join {
             final PCollection<KV<K, V2>> rightCollection
             ,final PCollection<KV<K, V3>> thirdCollection)
  {
-//KV<Integer,KV<KV<String,String>,String>>
-// KV<K,KV<KV<V1,V2>,V3>>
-        System.out.println("***************************** Inside Join inner join method **************************");
+
         final TupleTag<V1> v1Tuple = new TupleTag<>();
         final TupleTag<V2> v2Tuple = new TupleTag<>();
         final TupleTag<V3> v3Tuple = new TupleTag<>();
@@ -178,10 +176,6 @@ public class Join {
 
                     @ProcessElement
                     public void processElement(ProcessContext c) {
-                        System.out.println("***************************** Inside Join 333. coGBkCollection apply method **************************");
-                        System.out.println("****************getKey3"+c.element().getKey());
-                        System.out.println(c.element().getKey());
-                        System.out.println(c.element().getValue());
                         KV<K, CoGbkResult> e = c.element();
 
                         Iterable<V1> leftValuesIterable = e.getValue().getAll(v1Tuple);
@@ -190,14 +184,14 @@ public class Join {
 
                         for(V3 thirdValue : thirdValuesIterable)
                         {
-                            System.out.println("****thirdvalue"+thirdValue.toString());
+
                         }
 
                         for (V1 leftValue : leftValuesIterable) {
                             for (V2 rightValue : rightValuesIterable) {
                                 c.output(KV.of(e.getKey(), KV.of(leftValue, rightValue)));
                             }
-                            System.out.println("******leftvalue########"+leftValue.toString());
+
                         }
                     }
                 }))
