@@ -216,7 +216,7 @@ public class CustomerStreamPipelineGlobal {
         /**This join works if I comment out the subsequent join**/
       // PCollection<KV<Integer,KV<String,String>>> joinedCustomersAndPolicies= Join.innerJoin(all_customers,all_policies);
 
-      /**This cause an exception**/
+      /**This causes an exception**/
        PCollection<KV<Integer,KV<String,String>>> joinedCustomersAndPolicies= Join.innerJoin3Way(all_customers,all_policies,all_claims);
 
         /**this join will cause IllegalStateException **/
